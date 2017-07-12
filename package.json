@@ -2,5 +2,9 @@
   "dependencies": {
     "debug": "^2.6.8",
     "sharp": "^0.18.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "DEBUG=app node index.js"
   }
 }

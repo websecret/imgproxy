@@ -3,35 +3,48 @@ const config = require('./config')
 const debug = require('debug')('app')
 const http = require('http')
 
+module.exports = () => {
+    const server = http.createServer((req, res) => {
+        log(req, res)
+
+        const options = parseUrl(req.url)
+        const result = process(options)
+
+        respond(res, result)
+    })
+
+    server.listen(config.port)
+}
+
 const notFound = res => {
     res.writeHead(404)
     res.end()
 }
 
-module.exports = () => {
-    const server = http.createServer((req, res) => {
-        res.on('finish', function () {
-            debug(res.statusCode == 404 ? '404' : 'OK')
-        })
+const log = (req, res) => {
+    debug(`GET ${req.url}`)
 
-        let [_, type, ...path] = req.url.split('/')
-        path = path.join('/')
+    res.on('finish', function () {
+        debug(res.statusCode == 404 ? '404' : 'OK')
+    })
+}
 
-        debug(`GET ${req.url}`)
+const parseUrl = url => {
+    let [_, type, ...path] = url.split('/')
+    path = path.join('/')
 
-        let result = process({ type, path })
+    return { type, path }
+}
 
-        if (!result) {
-            notFound(res)
-            return
-        }
+const respond = (res, result) => {
+    if (!result) {
+        notFound(res)
+        return
+    }
 
-        result.on('error', function () {
-            notFound(res)
-        })
-
-        result.pipe(res)
+    result.on('error', function () {
+        notFound(res)
     })
 
-    server.listen(config.port)
+    result.pipe(res)
 }
