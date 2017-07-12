@@ -9,7 +9,6 @@ const notFound = res => {
 
 module.exports = () => {
     const server = http.createServer((req, res) => {
-        console.log(req.url)
         let [_, type, ...path] = req.url.split('/')
         path = path.join('/')
         let result = process({ type, path })
