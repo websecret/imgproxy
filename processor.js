@@ -14,6 +14,10 @@ module.exports = ({ type, path }) => {
             .resize(imageConfig.width, imageConfig.height)
             .max()
 
+        if (imageConfig.quality) {
+            image = image.jpeg({ quality : imageConfig.quality })
+        }
+
         if (!imageConfig.upsize) {
             image = image.withoutEnlargement()
         }
