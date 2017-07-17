@@ -10,8 +10,10 @@ module.exports = ({ type, path }) => {
     const imageConfig = config[type]
 
     const image = sharp(imagePath)
-        .resize(imageConfig.width, imageConfig.height)
-        .max()
+
+    if (imageConfig.width && imageConfig.height) {
+        image.resize(imageConfig.width, imageConfig.height).max()
+    }
 
     if (imageConfig.quality) {
         image.jpeg({ quality : imageConfig.quality })
