@@ -1,7 +1,7 @@
 const sharp = require('sharp')
 const config = require('./config')
 
-module.exports = ({ type, path }) => {
+module.exports = async ({ type, path }) => {
     if (!type || !path || !config[type]) {
         return null
     }
@@ -10,13 +10,14 @@ module.exports = ({ type, path }) => {
     const imageConfig = config[type]
 
     const image = sharp(imagePath)
+    let metadata = await image.metadata()
 
     if (imageConfig.width && imageConfig.height) {
         image.resize(imageConfig.width, imageConfig.height).max()
     }
 
-    if (imageConfig.quality) {
-        image.jpeg({ quality : imageConfig.quality })
+    if (imageConfig.quality && ['jpeg', 'tiff', 'webp'].includes(metadata.format)) {
+        image[metadata.format]({ quality : imageConfig.quality })
     }
 
     if (!imageConfig.upsize) {

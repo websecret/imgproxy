@@ -4,11 +4,11 @@ const debug = require('debug')('app')
 const http = require('http')
 
 module.exports = () => {
-    const server = http.createServer((req, res) => {
+    const server = http.createServer(async (req, res) => {
         log(req, res)
 
         const options = parseUrl(req.url)
-        const result = process(options)
+        const result = await process(options)
 
         respond(res, result)
     })
