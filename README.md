@@ -1,3 +1,3 @@
 # imgproxy
 
-https://websecret.by/blog/obrabotka-bolshih-obemov-izobrazhenij-na-krupnyh-i-nagruzhennyh-proektah
+https://websecret.by/blog/optimizaciya-izobrazhenij-na-krupnyh-proektah
