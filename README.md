@@ -1,8 +1,8 @@
-# imgproxy
+# Imgproxy
 
 https://websecret.by/blog/optimizaciya-izobrazhenij-na-krupnyh-proektah
 
-#Install
+# Install
 
 - `npm i`
 
