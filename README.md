@@ -4,7 +4,7 @@ https://websecret.by/blog/optimizaciya-izobrazhenij-na-krupnyh-proektah
 
 # Install
 
-- `npm i`
+- `yarn`
 
 - `cp config-example.js config.js` и указываем путь к конфигу картинок
 
