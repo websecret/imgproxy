@@ -8,9 +8,12 @@ module.exports = () => {
         log(req, res)
 
         const options = parseUrl(req.url)
-        const result = await process(options)
-
-        respond(res, result)
+	try {
+            const result = await process(options)
+            respond(res, result)
+	} catch (e) {
+	    respond(res, null)
+	}
     })
 
     server.listen(config.port)
